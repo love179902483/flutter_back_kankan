@@ -1,4 +1,4 @@
-const host: string = '192.168.43.94';
+const host: string = '127.0.0.1';
 const port: number = 1314;
 
 import * as net from 'net';
