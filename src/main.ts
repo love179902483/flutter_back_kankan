@@ -1,5 +1,5 @@
 const host: string = '192.168.43.94';
-const port: number = 3000;
+const port: number = 1314;
 
 import * as net from 'net';
 // import { RedisClient } from './redis/redis_pool';
@@ -97,6 +97,7 @@ const mySocket = function(socket: net.Socket): void{
 const socketServer: net.Server = net.createServer(mySocket);
 
 socketServer.listen(port,host);
+console.log(`socket listen in port ${port}`);
 
 socketServer.on('connection', function(socket: net.Socket){
     console.log('socket')
