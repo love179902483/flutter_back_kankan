@@ -88,7 +88,13 @@ const mySocket = function(socket: net.Socket): void{
         else
         console.log('logout,且用户未登录');
         // 从socket中删除次socket
-        deleteSocket(socketStore, userID);
+        try {
+            deleteSocket(socketStore, userID);
+        } catch (error) {
+            console.error(`从socketStore中删除${userID}出错`);
+            console.error(error);
+        }
+        
         
     })
     
@@ -101,7 +107,7 @@ const mySocket = function(socket: net.Socket): void{
     // });
 } 
 
-
+    
 
 
 
