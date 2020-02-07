@@ -42,11 +42,17 @@ export class NotifyPhoto{
     }
     // 保存用户的最新图片
     async save(){
-        const userID: string = this.sourceSocket.id;
-        const userImageID: string = `${userID}.image`;
-        await SelectRedisClient(1);
-        await QYsetHashArray(userID, ['last_photo', this.newData.last_photo, 'last_photo_time', this.newData.last_photo_time]);
-        await SelectRedisClient(2);
-        await QYsetListPush(userImageID, this.newData.last_photo_time);
+        try {
+            const userID: string = this.sourceSocket.id;
+            const userImageID: string = `${userID}.image`;
+            await SelectRedisClient(1);
+            await QYsetHashArray(userID, ['last_photo', this.newData.last_photo, 'last_photo_time', this.newData.last_photo_time]);
+            await SelectRedisClient(2);
+            await QYsetListPush(userImageID, this.newData.last_photo_time);
+        } catch (error) {
+            console.log(`用户${this.sourceSocket.id}保存照片失败${this.newData.last_photo}`);
+            console.log(error);
+        }
+     
     }
 }

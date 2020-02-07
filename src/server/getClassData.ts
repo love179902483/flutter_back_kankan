@@ -24,8 +24,9 @@ export class GetClassData{
           
             return allStudentInfo;
         } catch (error) {
-            console.log(`获取${this.classNumber}班级所有学生信息出错`);  
             console.log(error);
+            console.log(`获取${this.classNumber}班级所有学生信息出错`);  
+            return [];
         }
         
     }

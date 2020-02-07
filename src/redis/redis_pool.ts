@@ -8,7 +8,13 @@ const factory = {
         return await redis.createClient( redisConf.port, redisConf.host, {auth_pass: redisConf.authPass});
     },
     destroy: async function(client){
-        await client.quit();
+        try {
+            await client.quit();
+        } catch (error) {
+            console.log(error);
+            console.log('redis出错');
+        }
+        
     }
 }
 

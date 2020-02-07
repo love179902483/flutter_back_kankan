@@ -1,4 +1,4 @@
-const host: string = '127.0.0.1';
+// const host: string = '127.0.0.1';
 const port: number = 1314;
 
 import * as net from 'net';
@@ -50,15 +50,26 @@ const mySocket = function(socket: net.Socket): void{
                     // socket['userInfo'] = returnMsg.data;
                     socketStore.push(singleSocket);
 
-                    // 验证是否将 user 标志字段设置成功， 成功表示登录成功，失败则表示登录失败
-                    if (await login(userID)){
+                    try {
+                        // 在登录的情况下设置登录状态字段
+                        const result = await login(userID); 
+                        if (result){
                         
+                            socket.write(SocketEventConvert.toLogin(returnMsg));
+                        }else{
+                            console.log(`${userID}网络原因登录失败，稍后重试！！`)
+                            socket.write(SocketEventConvert.toLogin(returnMsg));
+                            socket.destroy();
+                        }
+                    } catch (error) {
+                        returnMsg.flag = false;
+                        returnMsg.msg = 'set login status error!!'
                         socket.write(SocketEventConvert.toLogin(returnMsg));
-                    }else{
-                        console.log(`${userID}网络原因登录失败，稍后重试！！`)
-                        socket.write(SocketEventConvert.toLogin(returnMsg));
-                        socket.destroy();
+                        console.log(error);
                     }
+                   
+                    // 验证是否将 user 标志字段设置成功， 成功表示登录成功，失败则表示登录失败
+                    
                         
                 }else{
                     socket.write(SocketEventConvert.toLogin(returnMsg));
@@ -96,7 +107,7 @@ const mySocket = function(socket: net.Socket): void{
 
 const socketServer: net.Server = net.createServer(mySocket);
 
-socketServer.listen(port,host);
+socketServer.listen(port);
 console.log(`socket listen in port ${port}`);
 
 socketServer.on('connection', function(socket: net.Socket){
