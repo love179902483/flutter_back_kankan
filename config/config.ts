@@ -5,4 +5,14 @@ const redisConf = {
     authPass: 'love.1314'
 }
 
-export { redisConf }
+
+const mysqlConf = {
+    connectionLimit: 200,
+    host: "localhost",
+    user: "root",
+    port:3306,
+    password: "love.1314",
+    database: "flutter_camera",
+}
+
+export { redisConf,mysqlConf }

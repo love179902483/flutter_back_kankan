@@ -1,5 +1,5 @@
 import * as redis from 'redis';
-import * as genericPool from 'generic-pool';
+// import * as genericPool from 'generic-pool';
 
 import { redisConf } from '../../config/config';
 
@@ -23,7 +23,7 @@ const opts = {
     min: 2
 }
 
-const redisPool = genericPool.createPool(factory, opts);
+// const redisPool = genericPool.createPool(factory, opts);
 
 // 放弃上面的连接池，改用直连方式
 const RedisClient = redis.createClient( redisConf.port, redisConf.host, {auth_pass: redisConf.authPass});

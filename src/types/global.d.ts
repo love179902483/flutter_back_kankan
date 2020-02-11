@@ -6,25 +6,49 @@ export interface NormalReturn<T>{
 }
 
 
-export interface StudentInfo{
+// export interface StudentInfo{
+//     name: string;
+//     phone: string;
+//     last_photo: string;
+//     last_photo_time: number;
+//     school_id: number;
+//     user_type: number;
+//     class_id: number;
+//     if_login: number;
+//     user_name: string;
+//     class_name: string;
+// }
+
+export interface ClassInfo{
+    class_id: number;
+    class_name: string;
+    student: UserInfo[];
+}
+
+
+
+export interface UserInfo{
     name: string;
     phone: string;
     last_photo: string;
-    last_photo_time: string;
-    stduent_id: string;
-    class_number: string;
-    password: string;
-    if_login: string;
+    last_photo_time: number;
+    school_id: number;
+    user_type: number;
+    class_id?: number | null;
+    if_login: number;
+    user_name: string;
+    class_name?: string | null;
+    passowrd?: string | null | '';
 }
 
-export interface ClassInfo{
+export interface RedisClassInfo{
     class_id: string;
-    student: StudentInfo[];
+    student: UserInfo[];
     year: string; 
 }
 export interface SchoolInfo{
     school_id: string;
-    class: ClassInfo[];
+    class: RedisClassInfo[];
 }
 
 // 登录后获取到的信息
@@ -42,14 +66,24 @@ export interface HomeInit{
 export interface NotifyData{
     username: string;
     last_photo: string;
+    last_photo_time:number;
+    class_id: number;
+}
+
+// 老师获取学生照片的返回数据
+export interface TeacherGetPhotoData{
+    username: string;
+    last_photo: string;
     last_photo_time:string;
-    class_number: string;
+    class_id: number;
+    to_user_name: string;
 }
 
 // 保存的socket格式为
 
 export interface SingleSocket{
-    userinfo: StudentInfo;
+    userinfo: UserInfo;
     id: string;
     socket: net.Socket;
+    lastHeartBeat: number;
 }
