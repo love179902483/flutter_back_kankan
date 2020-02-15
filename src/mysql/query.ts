@@ -6,7 +6,7 @@ import { NormalReturn, UserInfo, SingleSocket } from "../types/global";
 // 验证是否登录
 export async function queryPassword(userid: string, passowrd: string): Promise< NormalReturn<UserInfo>>{
     "select * from  user where user_phone='' and passworld=''"
-    const query: string = `select user_name,password,phone,if_login, class_id, school_id, name, user_type, (select class_name from class where class_id = user.class_id ) as class_name from  user where user_name=${mysql.escape(userid)} and password=${passowrd} `;
+    const query: string = `select user_name,password,phone,if_login, class_id, school_id, name, user_type, (select school_name from school where school_id= user.school_id) as school_name, (select class_name from class where class_id = user.class_id) as class_name from  user where user_name=${mysql.escape(userid)} and password=${passowrd} `;
     console.log(query);
     let returnMsg: NormalReturn<UserInfo> = {
         flag: false,
@@ -20,7 +20,8 @@ export async function queryPassword(userid: string, passowrd: string): Promise< 
             last_photo: '',
             last_photo_time: null,
             user_name: '',
-            passowrd: ''
+            passowrd: '',
+            school_name: '',
         },
         msg: ''
     }

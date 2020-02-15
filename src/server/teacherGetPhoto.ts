@@ -72,7 +72,6 @@ export class TeacherGetPhotoAndSend {
                 console.log('老师获取完成学生的照片准备返回给老师')
                 console.log(sendStudentInfo);
                 thisSocket.socket.write(SocketEventConvert.teacherReturenPhotoToTeacher(sendStudentInfo));
-                
             };
         }
     }

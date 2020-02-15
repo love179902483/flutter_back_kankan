@@ -38,6 +38,7 @@ export interface UserInfo{
     if_login: number;
     user_name: string;
     class_name?: string | null;
+    school_name?: string | null;
     passowrd?: string | null | '';
 }
 

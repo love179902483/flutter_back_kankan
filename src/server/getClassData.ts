@@ -74,8 +74,6 @@ export class TeacherGetClass{
         }else{
             return returnMsg
         }
-
-        
         
     }
 

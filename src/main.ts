@@ -46,7 +46,6 @@ const mySocket = function(socket: net.Socket): void{
                 user_name = userInfo.user_name;
                 const class_id = userInfo.class_id;
                 console.log(`本SOCKET 的 class_id是：${class_id}, user_name:${user_name}`);
-                console.log();
                 // 设置 每一个 socket 的数据
                 // 若用户登录了，则将现有的socket push到 socketStore中
                 singleSocket.userinfo = userInfo;
