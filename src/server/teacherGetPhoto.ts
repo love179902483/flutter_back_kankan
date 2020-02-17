@@ -17,10 +17,10 @@ export class TeacherGetPhoto {
     notifyOnlineSocket(){
         console.log(this.socketStore.length);
         for(let i=0, j=this.socketStore.length; i<j;i++){
-            console.log(`此用户的班级号${JSON.stringify(this.socketStore[i].userinfo)}`);
-            console.log(`此用户的ID号${this.socketStore[i].id}`)
-            console.log(`${this.socketStore[i].userinfo.class_id}：${this.class_id}`)
             if(this.socketStore[i].userinfo.class_id === this.class_id){
+                console.log(`获取本班级的在线用户,此用户的班级号${this.socketStore[i].userinfo.class_name}`);
+                console.log(`获取本班级的在线用户,此用户的ID号${this.socketStore[i].id}`)
+                console.log(`${this.socketStore[i].userinfo.class_id}：${this.class_id}`)
                 console.log(`${this.socketStore[i].id}在线，发送截图请求！`);
                 this.socketStore[i].socket.write(SocketEventConvert.teacherGetPhotoToStudent({'teacher_id':this.singleSocket.id}));
             }
@@ -55,7 +55,6 @@ export class TeacherGetPhotoAndSend {
         } catch (error) {
             console.error(error);
         }
-
     }
     /**
      * 将学生上传的照片返回给老师
@@ -70,7 +69,7 @@ export class TeacherGetPhotoAndSend {
                 sendStudentInfo.last_photo_time = this.nowDate;
 
                 console.log('老师获取完成学生的照片准备返回给老师')
-                console.log(sendStudentInfo);
+                console.log(`class_id: ${sendStudentInfo.class_id},school_name:${sendStudentInfo.school_name}, class_name: ${sendStudentInfo.class_name}, user_name: ${sendStudentInfo.user_name}, last_photo: ${sendStudentInfo.last_photo}`);
                 thisSocket.socket.write(SocketEventConvert.teacherReturenPhotoToTeacher(sendStudentInfo));
             };
         }

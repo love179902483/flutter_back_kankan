@@ -16,7 +16,7 @@ import { checkLastTime } from './server/heart';
 
 let socketStore: SingleSocket[] = [];
 // 每100秒执行一次定时任务，寻找socket中100秒未响应的socket并且切断
-setInterval(()=>{checkLastTime(100000, socketStore)}, 100000);
+setInterval(()=>{checkLastTime(60000, socketStore)}, 60000);
 const mySocket = function(socket: net.Socket): void{
     let checkCount: number = 5;
     let user_name: string = "";

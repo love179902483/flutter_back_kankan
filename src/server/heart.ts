@@ -48,9 +48,9 @@ export function checkLastTime(maxGap: number, socketStore: SingleSocket[] ){
         const nowTime: number = Date.now();
         const timeGap: number = nowTime - singleSocket.lastHeartBeat;
         console.log(`此tcp连接名字是${singleSocket.id}, 多久未连接:${timeGap},最大允许超时时间${maxGap}`)
-        if(timeGap > maxGap){
+        if(timeGap >= maxGap){
             console.log(socketStore.length);
-            console.log('找到了超时的tcp连接！');
+            console.log(`找到了超时的tcp连接！${singleSocket.id}`);
             singleSocket.socket.destroy();
             socketStore.splice(i,1);
             console.log(socketStore.length);

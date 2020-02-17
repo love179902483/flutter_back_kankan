@@ -13,7 +13,6 @@ const mysqlConf = {
     port:3306,
     password: "Love15135106691!",
     database: "ys_monitor",
-
 }
 
 // const mysqlConf = {
