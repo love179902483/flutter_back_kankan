@@ -8,7 +8,7 @@ import { createQiniuToken } from "../server/getQiniuToken";
 import { HeartBeat } from '../server/heart';
 import { TeacherGetPhoto, TeacherGetPhotoAndSend } from '../server/teacherGetPhoto';
 
-export async function QYRouteGet(singleSocket: SingleSocket, data: string, socketStore: SingleSocket[] ){
+export async function QYRouteGet(singleSocket: SingleSocket, data: string, socketStore: SingleSocket[]) {
     let returnMsg: NormalReturn<any> = {
         flag: false,
         data: '',
@@ -19,11 +19,11 @@ export async function QYRouteGet(singleSocket: SingleSocket, data: string, socke
         const getData: AfterLoginData = JSON.parse(data);
         console.log('来自用户的信息是：');
         console.log(getData);
-        switch (getData.event){
+        switch (getData.event) {
             case "heartBeat":
                 const thisBeat: number = getData.data;
                 // 验证本次 heartBeat 字段是否正确 
-                if(thisBeat === 1314){
+                if (thisBeat === 1314) {
                     console.log('开始心跳检测---');
                     // const thisHeartBeat = HeartBeat.thisHeartBeat();
                     // thisHeartBeat.setHeartTimer();
@@ -32,7 +32,7 @@ export async function QYRouteGet(singleSocket: SingleSocket, data: string, socke
                     const heartBeatReturn: number = 1314;
                     singleSocket.socket.write(SocketEventConvert.heartBeat(heartBeatReturn));
                 }
-                
+
                 break;
 
             case 'homeInit':
@@ -44,7 +44,7 @@ export async function QYRouteGet(singleSocket: SingleSocket, data: string, socke
                     const school_id: number = singleSocket.userinfo.school_id;
                     const classData: TeacherGetClass = new TeacherGetClass(user_name, school_id);
                     const allStudentInfo: NormalReturn<ClassInfo[]> = await classData.getAllClass();
-                    
+
                     singleSocket.socket.write(SocketEventConvert.homeInit(allStudentInfo));
                 } catch (error) {
                     returnMsg.msg = 'get class message error !!!'

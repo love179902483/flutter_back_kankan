@@ -16,7 +16,7 @@ pool.on("release", function (connection) {
 });
 
 export function QueryPool(sql: string, value: string | number[]): Promise<any> {
- 
+
   return new Promise((resolve, reject) => {
     pool.getConnection(function (error, connection) {
       if (error) {
